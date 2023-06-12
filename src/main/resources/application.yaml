@@ -1,0 +1,38 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /RogerReverseProxyTest
+spring:
+  # JSP 設置
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+  # H2 Database
+  h2:
+    console:
+      enabled: true # 啟用 H2 的 web-console
+  datasource:
+    url: jdbc:h2:mem:MyH2DB # h2 database 連接位址(In-Memory)
+    # url: jdbc:h2:file:./MyH2DB;AUTO_SERVER=TRUE # h2 database 連接位址(file)
+    driver-class-name: org.h2.Driver # 配置 driver
+    username: sa # database 用戶名
+    password: sa123456 # database 密碼
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: none # 關閉自動建表
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  sql:
+    init:
+      encoding: utf-8
+      schema-locations: classpath:./Database_init/Create_H2_TABLE_Script.sql
+      data-locations: classpath:./Database_init/Insert_H2_TABLE_Script.sql
+      continue-on-error: false
+logging:
+    level:
+      org.hibernate.type.descriptor.sql: trace # 顯示 SQL 參數
+# 遠端偵錯
