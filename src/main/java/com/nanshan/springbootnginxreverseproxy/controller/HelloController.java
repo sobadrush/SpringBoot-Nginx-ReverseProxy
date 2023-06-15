@@ -15,7 +15,7 @@ import java.util.Map;
 @Controller
 public class HelloController {
 
-    // http://localhost:8080/RogerReverseProxyTest/toHelloJsp?empName=Roger
+    // GET: http://localhost:8080/RogerReverseProxyTest/toHelloJsp?empName=Roger
     @RequestMapping(value="/toHelloJsp", method = RequestMethod.GET)
     public ModelAndView hello(@RequestParam Map<String, Object> model) {
         System.out.println("model = " + model);
