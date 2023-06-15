@@ -15,9 +15,13 @@ then
     docker restart $containerName
 else
     echo "container not exists ... run it"
-    docker run --platform linux/amd64 -idt --name $containerName -p 8081:8080 $registry/$buildImageName:$tag /bin/bash
+    docker run --platform linux/amd64 -idt \
+    --name $containerName \
+    -p 8081:8080 \
+    -p 18090:18090 \
+    $registry/$buildImageName:$tag /bin/bash
 fi
 
 # docker logs
-sleep 2s
-docker logs -f $containerName
+#sleep 2s
+#docker logs -f $containerName
