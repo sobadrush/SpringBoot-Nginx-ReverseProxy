@@ -11,7 +11,9 @@ spring:
   # H2 Database
   h2:
     console:
-      enabled: true # 啟用 H2 的 web-console
+      enabled: true # 啟用 H2 的 web-console (http://localhost:8080/RogerReverseProxyTest/h2-console/)
+      settings:
+        web-allow-others: true # 允許非這台 Server的人也可以訪問 H2-Console
   datasource:
     url: jdbc:h2:mem:MyH2DB # h2 database 連接位址(In-Memory)
     # url: jdbc:h2:file:./MyH2DB;AUTO_SERVER=TRUE # h2 database 連接位址(file)
