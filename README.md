@@ -9,6 +9,7 @@
  - SpringBoot 使用 JSP
  - Junit 參數化測試
  - 使用 H2 資料庫
+ - Docker 容器化
 
 
 | # |                         說明                          |                             URL                              |
@@ -18,3 +19,4 @@
 | 3 |    [H2資料庫] Day 07 - Spring Boot 資料庫 H2 ＋ Entity     |        https://ithelp.ithome.com.tw/articles/10237915        |
 | 4 |         [SpringBoot使用JSP] Spring Boot + JSP         |      https://dotblogs.com.tw/ShihGoGo/2022/06/23/153716      |
 | 5 | [SpringBoot使用JSP]  Day 7 Spring Boot-Controller(下)  |        https://ithelp.ithome.com.tw/articles/10194035        |
+| 5 |                  🚩Dockerfile 指令教學                  |                  https://liba.ro/5z94d0bqe                   |
