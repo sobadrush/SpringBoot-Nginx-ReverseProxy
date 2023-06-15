@@ -1,6 +1,6 @@
 # ref. https://www.jinnsblog.com/2018/12/docker-dockerfile-guide.html
 # ref. --platform : https://collabnix.com/warning-the-requested-images-platform-linux-amd64-does-not-match-the-detected-host-platform-linux-arm64-v8/
-# 使用 jre 當作 base image，較節省容量ㄋ
+# 使用 jre 當作 base image，較節省容量
 
 # [Build 指令]：docker build --platform linux/amd64 -t sobadrush/springboot-nginx:v1 --no-cache -f ./Dockerfile .
 # [Run 指令]：docker run --platform linux/amd64 -idt --name my-springboot-nginx -p 8081:8080 sobadrush/springboot-nginx:v1 /bin/bash
