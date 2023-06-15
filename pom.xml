@@ -12,16 +12,21 @@
 
     <groupId>com.nanshan</groupId>
     <artifactId>SpringBoot-Nginx-ReverseProxy</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>v1</version>
     <!-- <packaging>war</packaging> -->
     <name>SpringBoot-Nginx-ReverseProxy</name>
     <description>SpringBoot-Nginx-ReverseProxy</description>
+
+    <!-- 打包成 war，才可成功在打包成容器後 forward JSP -->
+    <!-- Dockerfile 也要調整 -->
+    <packaging>jar</packaging>
 
     <properties>
         <java.version>11</java.version>
         <maven.compiler.version>3.8.1</maven.compiler.version>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
+        <docker.registry.name>sobadrush</docker.registry.name>
     </properties>
 
     <dependencies>
@@ -65,6 +70,7 @@
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-jasper</artifactId>
+            <!--  ref. https://liba.ro/5z93pwlvq -->
             <scope>provided</scope>
         </dependency>
 
@@ -76,15 +82,17 @@
             <scope>runtime</scope>
         </dependency>
 
-         <dependency>
-             <groupId>org.springframework.boot</groupId>
-             <artifactId>spring-boot-starter-data-jpa</artifactId>
-         </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
 
     </dependencies>
 
     <build>
+        <finalName>${artifactId}</finalName>
         <plugins>
+
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
@@ -97,6 +105,7 @@
                     </excludes>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -106,6 +115,75 @@
                     <target>${java.version}</target>
                 </configuration>
             </plugin>
+
+            <!-- <plugin> -->
+            <!-- ref. https://www.itmuch.com/docker/12-docker-maven/ -->
+            <!-- ref. https://blog.csdn.net/twingao/article/details/105157935 -->
+            <!--     <groupId>com.spotify</groupId> -->
+            <!--     <artifactId>docker-maven-plugin</artifactId> -->
+            <!--     <version>0.4.13</version> -->
+            <!--     <configuration> -->
+            <!--         <imageName>${docker.registry.name}/springboot-nginx:${project.version}</imageName> -->
+            <!--         <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory> -->
+            <!--         <resources> -->
+            <!--             <resource> -->
+            <!--                 <targetPath>/</targetPath> -->
+            <!--                 <directory>${project.build.directory}</directory> -->
+            <!--                 <include>${project.build.finalName}.jar</include> -->
+            <!--             </resource> -->
+            <!--         </resources> -->
+            <!--     </configuration> -->
+            <!-- </plugin> -->
+
+            <!-- <plugin> -->
+            <!--     &lt;!&ndash; ref. https://blog.csdn.net/qq_34250494/article/details/120493447 &ndash;&gt; -->
+            <!--     &lt;!&ndash; ref. https://dmp.fabric8.io/ &ndash;&gt; -->
+            <!--     <groupId>io.fabric8</groupId> -->
+            <!--     <artifactId>docker-maven-plugin</artifactId> -->
+            <!--     <version>0.43.0</version> -->
+            <!--     <configuration> -->
+            <!--         <dockerHost>tcp://192.168.65.0:24</dockerHost> -->
+            <!--         <verbose>true</verbose> -->
+            <!--         <images> -->
+            <!--             <image> -->
+            <!--                 &lt;!&ndash; 指定 image 名稱(包含 registry 名稱)&ndash;&gt; -->
+            <!--                 <name>${docker.registry.name}/springboot-nginx:${project.version}</name> -->
+            <!--                 &lt;!&ndash; 別名為 master，不太重要&ndash;&gt; -->
+            <!--                 <alias>master</alias> -->
+            <!--                 <build> -->
+            <!--                     &lt;!&ndash; 指定 dockerfile 文件的位置&ndash;&gt; -->
+            <!--                     <dockerFile>${project.basedir}/src/main/docker/Dockerfile</dockerFile> -->
+            <!--                     <buildOptions> -->
+            <!--                         &lt;!&ndash; 網路配置，使用Host機相同網路設定&ndash;&gt; -->
+            <!--                         <network>host</network> -->
+            <!--                     </buildOptions> -->
+            <!--                 </build> -->
+            <!--             </image> -->
+            <!--             &lt;!&ndash; 可生成多個 image &ndash;&gt; -->
+            <!--             &lt;!&ndash; <image> &ndash;&gt; -->
+            <!--             &lt;!&ndash;     ... &ndash;&gt; -->
+            <!--             &lt;!&ndash; </image> &ndash;&gt; -->
+            <!--         </images> -->
+            <!--         &lt;!&ndash; <authConfig> &ndash;&gt; -->
+            <!--         &lt;!&ndash;     &lt;!&ndash; registry 服務登入資訊 &ndash;&gt; &ndash;&gt; -->
+            <!--         &lt;!&ndash;     <username>sobadrush</username> &ndash;&gt; -->
+            <!--         &lt;!&ndash;     <password>kelly180448</password> &ndash;&gt; -->
+            <!--         &lt;!&ndash; </authConfig> &ndash;&gt; -->
+            <!--     </configuration> -->
+            <!--     <executions> -->
+            <!--         <execution> -->
+            <!--             <id>docker-exec</id> -->
+            <!--             &lt;!&ndash; 绑定 mvn package 階段，當執行 mvn package 時， &ndash;&gt; -->
+            <!--             &lt;!&ndash; 就會執行 docker build (和 docker push) &ndash;&gt; -->
+            <!--             <phase>package</phase> -->
+            <!--             <goals> -->
+            <!--                 <goal>build</goal> -->
+            <!--                 &lt;!&ndash; <goal>push</goal> &ndash;&gt; -->
+            <!--             </goals> -->
+            <!--         </execution> -->
+            <!--     </executions> -->
+            <!-- </plugin> -->
+
         </plugins>
     </build>
 
