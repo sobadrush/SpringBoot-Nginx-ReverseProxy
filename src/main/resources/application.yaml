@@ -3,6 +3,9 @@ server:
   servlet:
     context-path: /RogerReverseProxyTest
 spring:
+  banner:
+    charset: utf-8
+    location: classpath:banner.txt
   # JSP 設置
   mvc:
     view:
