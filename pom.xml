@@ -91,6 +91,28 @@
 
     <build>
         <finalName>${artifactId}</finalName>
+
+        <!-- Maven filtering -->
+        <!-- 開啟過濾器功能，開啟之後就可以從 <properties> 元素或者下面 <filters> 中指定的 properties 文件中讀取變量的值替換 ${變量名} -->
+        <!-- 注意：SpringBoot 要使用 @變量名@ 這種格式才可以成功替換 -->
+        <filters>
+            <filter>src/main/resources/my-filter-values.properties</filter>
+        </filters>
+        <resources>
+            <resource>
+                <directory>src/main/resources/</directory>
+                <filtering>false</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/webapp/WEB-INF/</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>web.xml</include>
+                </includes>
+                <targetPath>WEB-INF</targetPath><!-- 將 web.xml filtering 後，打包到 war 中的 WEB-INF/ 下 -->
+            </resource>
+        </resources>
+
         <plugins>
 
             <plugin>
