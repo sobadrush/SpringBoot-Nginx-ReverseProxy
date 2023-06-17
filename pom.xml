@@ -19,7 +19,8 @@
 
     <!-- 打包成 war，才可成功在打包成容器後 forward JSP -->
     <!-- Dockerfile 也要調整 -->
-    <packaging>jar</packaging>
+    <!-- <packaging>jar</packaging> -->
+    <packaging>war</packaging>
 
     <properties>
         <java.version>11</java.version>
@@ -34,6 +35,20 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <!-- 這裡是擺脫 embed Tomcat 的關鍵 -->
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- 將tomcat的scope的作用域設置為provided，這個地方和上面說的那個exclusion裡面其實選其一就行 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
         </dependency>
 
         <dependency>

@@ -1,0 +1,25 @@
+# ref. https://www.jinnsblog.com/2018/12/docker-dockerfile-guide.html
+# ref. --platform : https://collabnix.com/warning-the-requested-images-platform-linux-amd64-does-not-match-the-detected-host-platform-linux-arm64-v8/
+# 使用 jre 當作 base image，較節省容量
+
+# [Build 指令]：docker build --platform linux/amd64 -t sobadrush/springboot-nginx:v1 --no-cache -f ./Dockerfile .
+# [Run 指令]：docker run --platform linux/amd64 -idt --name my-springboot-nginx -p 8081:8080 sobadrush/springboot-nginx:v1 /bin/bash
+
+#【使用 war + Tomcat 啟動(不推薦！)】
+#【使用 http://localhost:18080，應可到 tomcat 管理介面 → 實測失敗 ... tomcat-users.xml & webapps.dist/manager/META-INF/context.xml】
+#【Tomcat 管理介面】ref. https://blog.csdn.net/weixin_42198656/article/details/121350952
+#【app.war】的 app 會成為 Tomcat 的 context-path
+FROM tomcat:9.0.71-jdk11
+MAINTAINER "ROGER LO"
+LABEL description="這是一個使用 tomcat:9.0.71 打包的專案" version="1.0" owner="ROGER LO"
+COPY ./SpringBoot-Nginx-ReverseProxy.war /usr/local/tomcat/webapps/app.war
+EXPOSE 8080 8787
+CMD ["/usr/local/tomcat/bin/catalina.sh","run"]
+
+# Tomcat 管理介面測試 : fail
+#COPY ./settings_to_container/tomcat-users.xml /usr/local/tomcat/conf/tomcat-users.xml
+#COPY ./settings_to_container/context.xml /usr/local/tomcat/webapps.dist/manager/META-INF/context.xml
+
+# Tomcat 遠端偵錯測試 : fail
+#COPY ./settings_to_container/catalina.sh /usr/local/tomcat/bin/catalina.sh
+#COPY ./settings_to_container/startup.sh /usr/local/tomcat/bin/startup.sh
