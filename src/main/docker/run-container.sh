@@ -17,8 +17,8 @@ else
     echo "container not exists ... run it"
     docker run --platform linux/amd64 -idt \
       --name $containerName \
-      -p 8081:8080 \
-      -p 18090:18090 \
+      -p 18080:8080 \
+      -p 18787:8787 \
       $registry/$buildImageName:$tag /bin/bash
 fi
 

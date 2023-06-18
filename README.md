@@ -14,7 +14,7 @@
  - Junit 參數化測試
  - 使用 H2 資料庫
  - Docker 容器化
- - 遠端偵錯 18090 port
+ - 遠端偵錯 18787 port (@ 「use-external-tomcat」 branch)
  - Maven Filtering (@ 「use-external-tomcat」 branch)
 
 

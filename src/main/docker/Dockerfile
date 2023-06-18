@@ -6,13 +6,13 @@
 # [Run 指令]：docker run --platform linux/amd64 -idt --name my-springboot-nginx -p 8081:8080 sobadrush/springboot-nginx:v1 /bin/bash
 
 #【使用 SpringBoot Jar 啟動】
-FROM ballerina/jre11:v1
-MAINTAINER "ROGER LO"
-LABEL description="這是一個使用 fabric8 的 docker-maven-plugin 打包的專案" version="1.0" owner="ROGER LO"
-WORKDIR /app
-COPY ./SpringBoot-Nginx-ReverseProxy.jar ./app.jar
-EXPOSE 8080 18090
-ENTRYPOINT ["java","-jar","app.jar"]
+#FROM ballerina/jre11:v1
+#MAINTAINER "ROGER LO"
+#LABEL description="這是一個使用 fabric8 的 docker-maven-plugin 打包的專案" version="1.0" owner="ROGER LO"
+#WORKDIR /app
+#COPY ./SpringBoot-Nginx-ReverseProxy.jar ./app.jar
+#EXPOSE 8080 18090
+#ENTRYPOINT ["java","-jar","app.jar"]
 
 #【使用 war 啟動 SpringBoot (不推薦！)】
 #FROM ballerina/jre11:v1
@@ -34,10 +34,10 @@ ENTRYPOINT ["java","-jar","app.jar"]
 # - 多開啟 18090 port
 # - address 設定：*:18090 或 0.0.0.0:18090 → 讓所有人都能連
 # - run-container.sh 中的 docker run 新增 -p 18090:18090
-#FROM ballerina/jre11:v1
-#MAINTAINER "ROGER LO"
-#LABEL description="這是一個使用 fabric8 的 docker-maven-plugin 打包的專案" version="1.0" owner="ROGER LO"
-#WORKDIR /app
-#COPY ./SpringBoot-Nginx-ReverseProxy.jar ./app.jar
-#EXPOSE 8080 18090
-#ENTRYPOINT ["java","-agentlib:jdwp=transport=dt_socket,address=*:18090,server=y,suspend=n","-jar","app.jar"]
+FROM ballerina/jre11:v1
+MAINTAINER "ROGER LO"
+LABEL description="這是一個使用 fabric8 的 docker-maven-plugin 打包的專案" version="1.0" owner="ROGER LO"
+WORKDIR /app
+COPY ./SpringBoot-Nginx-ReverseProxy.jar ./app.jar
+EXPOSE 8080 8787
+ENTRYPOINT ["java","-agentlib:jdwp=transport=dt_socket,address=*:8787,server=y,suspend=n","-jar","app.jar"]
