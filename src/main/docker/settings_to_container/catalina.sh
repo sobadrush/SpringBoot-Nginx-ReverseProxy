@@ -264,9 +264,14 @@ if [ -z "$JSSE_OPTS" ] ; then
 fi
 JAVA_OPTS="$JAVA_OPTS $JSSE_OPTS"
 
-# Register custom URL handlers
-# Do this here so custom URL handles (specifically 'war:...') can be used in the security policy
-JAVA_OPTS="$JAVA_OPTS -Djava.protocol.handler.pkgs=org.apache.catalina.webresources"
+### 修改如下 ###
+# 設定遠端偵錯
+# 1. 註解 L277
+# 2. 容器內：address=*:8787 → 開放 8787 遠端偵錯端口 (* 表示允許所有來源 IP)
+# 3. Host機：docker -p 18787:8787
+
+# (註解此行，改成以下) JAVA_OPTS="$JAVA_OPTS -Djava.protocol.handler.pkgs=org.apache.catalina.webresources"
+JAVA_OPTS="$JAVA_OPTS -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=*:8787 -Djava.protocol.handler.pkgs=org.apache.catalina.webresources"
 
 # Check for the deprecated LOGGING_CONFIG
 # Only use it if CATALINA_LOGGING_CONFIG is not set and LOGGING_CONFIG starts with "-D..."

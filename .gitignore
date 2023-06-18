@@ -34,3 +34,4 @@ build/
 
 ### docker pack ###
 **/src/main/docker/*.jar
+**/src/main/docker/*.war
