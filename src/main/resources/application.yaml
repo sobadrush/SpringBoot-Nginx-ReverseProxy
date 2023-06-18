@@ -45,6 +45,7 @@ logging:
       org.hibernate.type.descriptor.sql: trace # 顯示 SQL 參數
 application: # 以下是自訂參數
   email: default@gmail.com
+
 ---
 
 ### Develop ###
