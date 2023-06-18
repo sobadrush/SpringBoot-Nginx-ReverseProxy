@@ -41,13 +41,8 @@
 -->
 
   <!-- 啟用 Tomcat 管理介面 -->
-    <role rolename="admin-gui"/>
-    <role rolename="admin-script"/>
-    <role rolename="manager-gui"/>
-    <role rolename="manager-script"/>
-    <role rolename="manager-jmx"/>
-    <role rolename="manager-status"/>
-    <user username="admin" password="admin" roles="manager-gui,manager-script,manager-jmx,manager-status,admin-script,admin-gui"/>
+  <user username="tomcatAdmin" password="1qaz@WSX" roles="manager-gui"/>
+  <user username="robot" password="1qaz@WSX" roles="manager-script"/>
 
 <!--
   The sample user and role entries below are intended for use with the
