@@ -40,4 +40,3 @@ spring:
 logging:
     level:
       org.hibernate.type.descriptor.sql: trace # 顯示 SQL 參數
-# 遠端偵錯
