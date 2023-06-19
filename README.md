@@ -19,6 +19,7 @@
  - 遠端偵錯 18787 port (@ 「use-external-tomcat」 branch)
  - Maven Filtering (@ 「use-external-tomcat」 branch)
  - YAML 多 Profile 配置
+ - Spring 讀取外部設定檔 (docker-compose)
 
 
 | #  |                               說明                               |                                 URL                                 |
