@@ -19,8 +19,8 @@
 
     <!-- 打包成 war，才可成功在打包成容器後 forward JSP -->
     <!-- Dockerfile 也要調整 -->
-    <!-- <packaging>jar</packaging> -->
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
+    <!-- <packaging>war</packaging> -->
 
     <properties>
         <java.version>11</java.version>
