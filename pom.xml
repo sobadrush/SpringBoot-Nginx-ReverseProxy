@@ -35,21 +35,21 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <exclusions>
-                <!-- 這裡是擺脫 embed Tomcat 的關鍵 -->
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-tomcat</artifactId>
-                </exclusion>
-            </exclusions>
+            <!-- <exclusions> -->
+            <!--     &lt;!&ndash; 這裡是擺脫 embed Tomcat 的關鍵 &ndash;&gt; -->
+            <!--     <exclusion> -->
+            <!--         <groupId>org.springframework.boot</groupId> -->
+            <!--         <artifactId>spring-boot-starter-tomcat</artifactId> -->
+            <!--     </exclusion> -->
+            <!-- </exclusions> -->
         </dependency>
 
         <!-- 將tomcat的scope的作用域設置為provided，這個地方和上面說的那個exclusion裡面其實選其一就行 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-tomcat</artifactId>
-            <scope>provided</scope>
-        </dependency>
+        <!-- <dependency> -->
+        <!--     <groupId>org.springframework.boot</groupId> -->
+        <!--     <artifactId>spring-boot-starter-tomcat</artifactId> -->
+        <!--     <scope>provided</scope> -->
+        <!-- </dependency> -->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
