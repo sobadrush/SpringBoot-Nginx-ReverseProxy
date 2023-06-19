@@ -14,6 +14,8 @@
  - Junit 參數化測試
  - 使用 H2 資料庫
  - Docker 容器化
+ - Docker Compose
+ - Nginx 反向代理
  - 遠端偵錯 18787 port (@ 「use-external-tomcat」 branch)
  - Maven Filtering (@ 「use-external-tomcat」 branch)
  - YAML 多 Profile 配置
