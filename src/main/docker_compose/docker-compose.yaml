@@ -7,16 +7,18 @@ services:
   springboot_app:
     image: sobadrush/springboot-h2-img:v1
     container_name: my-springboot-h2
+    platform: linux/amd64
     restart: no
     ports:
       - "18080:8080"
       - "18787:8787"
-#    environment:
-#      - SPRING_CONFIG_LOCATION=
-#      - SPRING_PROFILE_ACTIVE=dev
-#      - TZ=Asia/Taipei
-#    volumes:
-#      - ${host-path}:${container-path}
+    environment:
+      - SPRING_CONFIG_LOCATION=/app/spring-configs/
+      - SPRING_PROFILE_ACTIVE=dev
+      - TZ=Asia/Taipei
+    volumes:
+      - ./spring_settings/application.yaml:/app/spring-configs/application.yaml # 將 spring 設定檔 volume 到 container 中
+  # 定義一個叫 nginx 的 service (Reverse-Proxy)
   nginx:
     image: nginx:latest
     container_name: my-nginx
