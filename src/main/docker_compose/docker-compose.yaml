@@ -1,0 +1,27 @@
+# 使用 3.8 版的設定檔，通常新版本會有新的功能，並支援新的設定參數
+version: "3.8"
+
+# 定義 service 的區塊，一個 service 設定可以用來啟動多個 container
+services:
+  # 定義一個叫 springboot_app 的 service
+  springboot_app:
+    image: sobadrush/springboot-h2-img:v1
+    container_name: my-springboot-h2
+    restart: no
+    ports:
+      - "18080:8080"
+      - "18787:8787"
+#    environment:
+#      - SPRING_CONFIG_LOCATION=
+#      - SPRING_PROFILE_ACTIVE=dev
+#      - TZ=Asia/Taipei
+#    volumes:
+#      - ${host-path}:${container-path}
+  nginx:
+    image: nginx:latest
+    container_name: my-nginx
+    restart: no
+    volumes:
+      - ./nginx_setting/default.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "7795:80"
