@@ -41,3 +41,4 @@
 | 17 |                            YAML 字串                             |    https://blog.csdn.net/zhoudingding/article/details/106251013     |
 | 18 |                   springboot之入门2篇(yaml语法和使用）                   |      https://blog.csdn.net/nuyoahso/article/details/115320410       |
 | 19 |                       CommandLineRunner                        | https://z.itpub.net/article/detail/9359DFC80B3615560719EA1529CD2520 |
+| 20 |                           NGINX 反向代理                           |           https://ithelp.ithome.com.tw/articles/10221704            |
