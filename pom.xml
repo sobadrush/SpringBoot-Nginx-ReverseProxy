@@ -44,6 +44,12 @@
             <!-- </exclusions> -->
         </dependency>
 
+        <!-- Spring Actuator 監控 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
         <!-- 將tomcat的scope的作用域設置為provided，這個地方和上面說的那個exclusion裡面其實選其一就行 -->
         <!-- <dependency> -->
         <!--     <groupId>org.springframework.boot</groupId> -->

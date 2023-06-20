@@ -41,8 +41,8 @@ spring:
       data-locations: classpath:./Database_init/Insert_H2_TABLE_Script.sql
       continue-on-error: false
 logging:
-    level:
-      org.hibernate.type.descriptor.sql: trace # 顯示 SQL 參數
+  level:
+    org.hibernate.type.descriptor.sql: trace # 顯示 SQL 參數
 application: # 以下是自訂參數
   email: default@gmail.com
 
@@ -53,9 +53,30 @@ spring:
   config:
     activate:
       on-profile: dev
+
+management: # 啟用 Spring Actuator 監控
+  server:
+    port: 7001
+    address: 127.0.0.1
+  endpoints:
+    web:
+      base-path: "/my-actuator"
+      exposure:
+        # include: health,info,beans,conditions
+        include: '*'
+  endpoint:
+    health:
+      show-details: always
+    shutdown:
+      enable: true
+info: # info 如果沒有額外設定的話，只會返回 {}
+  developer:
+    email: "sobadrush@icloud.com"
+    phone: "0912-345-678"
+
 application: # 以下是自訂參數
-  email: dev-外部設定@gmail.com
-  domain: domain-dev
+  email: "dev-外部設定@gmail.com"
+  domain: "domain-dev"
   servers:
     - ip: '127.0.0.1'
       path: "${application.domain}/dev-path-1"
@@ -76,8 +97,8 @@ spring:
     activate:
       on-profile: prod
 application: # 以下是自訂參數
-  email: prod@gmail.com
-  domain: domain-prod
+  email: "prod@gmail.com"
+  domain: "domain-prod"
   servers:
     - ip: '192.168.0.1'
       path: "${application.domain}/prod-path-1"
