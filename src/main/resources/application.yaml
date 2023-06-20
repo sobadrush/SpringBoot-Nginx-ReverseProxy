@@ -53,20 +53,6 @@ spring:
   config:
     activate:
       on-profile: dev
-application: # 以下是自訂參數
-  email: dev@gmail.com
-  domain: domain-dev
-  servers:
-    - ip: '127.0.0.1'
-      path: "${application.domain}/dev-path-1"
-    - ip: '127.0.0.2'
-      path: '${application.domain}/dev-path-2'
-    - ip: '127.0.0.3'
-      path: "${application.domain}/dev-path-3"
-  purchase-info: # java 物件會自動將 - 轉為 _
-    name: "Vacuum Cleaner"
-    price: 3.00
-    quantity: 7
 management: # Spring Actuator 監控(http://127.0.0.1:7001/my-actuator/health / http://127.0.0.1:7001/my-actuator/env)
   server:
     address: 127.0.0.1
@@ -82,6 +68,20 @@ management: # Spring Actuator 監控(http://127.0.0.1:7001/my-actuator/health / 
       show-details: always
     shutdown:
       enabled: true
+application: # 以下是自訂參數
+  email: dev@gmail.com
+  domain: domain-dev
+  servers:
+    - ip: '127.0.0.1'
+      path: "${application.domain}/dev-path-1"
+    - ip: '127.0.0.2'
+      path: '${application.domain}/dev-path-2'
+    - ip: '127.0.0.3'
+      path: "${application.domain}/dev-path-3"
+  purchase-info: # java 物件會自動將 - 轉為 _
+    name: "Vacuum Cleaner"
+    price: 3.00
+    quantity: 7
 
 ---
 
