@@ -21,6 +21,12 @@
  - YAML 多 Profile 配置
  - Spring 讀取外部設定檔 (docker-compose)
 
+- Spring Actuator URL
+    - http://localhost:7001/my-actuator/health
+    - http://localhost:7001/my-actuator/env
+    - http://localhost:7001/my-actuator/metrics
+    - http://localhost:7001/my-actuator/mappings
+    - http://localhost:7001/my-actuator/beans
 
 | #  |                               說明                               |                                 URL                                 |
 |:--:|:--------------------------------------------------------------:|:-------------------------------------------------------------------:|
