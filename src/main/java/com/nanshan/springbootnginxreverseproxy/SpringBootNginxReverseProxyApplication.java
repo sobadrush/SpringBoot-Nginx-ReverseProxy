@@ -1,12 +1,17 @@
 package com.nanshan.springbootnginxreverseproxy;
 
+import io.micrometer.core.instrument.MeterRegistry;
+import lombok.extern.log4j.Log4j2;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.Level;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.actuate.autoconfigure.metrics.MeterRegistryCustomizer;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
 
 import java.text.MessageFormat;
@@ -16,6 +21,7 @@ import java.util.Arrays;
  * CommandLineRunner: https://z.itpub.net/article/detail/9359DFC80B3615560719EA1529CD2520
  */
 @SpringBootApplication
+@Log4j2
 @EnableConfigurationProperties(value = ApplicationProps.class)
 public class SpringBootNginxReverseProxyApplication implements CommandLineRunner {
 
@@ -51,5 +57,15 @@ public class SpringBootNginxReverseProxyApplication implements CommandLineRunner
     private String getOuterSpringSettings() {
         String springConfigLocation = System.getenv("SPRING_CONFIG_LOCATION");
         return StringUtils.isNotBlank(springConfigLocation) ? springConfigLocation : "無(使用內部設定檔)";
+    }
+
+    /**
+     * Prometheus
+     * 可使用：http://localhost:7001/my-actuator/prometheus 查看 Spring-Actuator 預設給 Prometheus 的資訊
+     */
+    @Bean
+    public MeterRegistryCustomizer<MeterRegistry> configurer(@Value("${spring.application.name}") String applicationName){
+        log.log(Level.INFO, "applicationName = {}", applicationName);
+        return registry -> registry.config().commonTags("application", applicationName);
     }
 }

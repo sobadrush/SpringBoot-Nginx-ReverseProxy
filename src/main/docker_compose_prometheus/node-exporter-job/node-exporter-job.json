@@ -1,0 +1,11 @@
+[
+  {
+    "targets": [
+      "172.20.10.2:9100"
+    ],
+    "labels": {
+      "instance": "node-exporter",
+      "service": "node-exporter-service"
+    }
+  }
+]

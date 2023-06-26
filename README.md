@@ -21,13 +21,19 @@
  - YAML 多 Profile 配置
  - Spring 讀取外部設定檔 (docker-compose)
 
-- Spring Actuator URL
+ - Spring Actuator URL
     - http://localhost:7001/my-actuator/health
     - http://localhost:7001/my-actuator/env
     - http://localhost:7001/my-actuator/metrics
     - http://localhost:7001/my-actuator/mappings
     - http://localhost:7001/my-actuator/beans
     - http://localhost:7001/my-actuator/prometheus
+
+
+## 啟動 Prometheus + Grafana
+```bash
+$ docker-compose -f docker-compose-prometheus.yaml up
+```
 
 | #  |                               說明                               |                                 URL                                 |
 |:--:|:--------------------------------------------------------------:|:-------------------------------------------------------------------:|

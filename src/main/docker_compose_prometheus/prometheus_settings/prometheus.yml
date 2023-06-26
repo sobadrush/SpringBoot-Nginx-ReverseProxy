@@ -1,0 +1,71 @@
+# my global config
+global:
+  scrape_interval: 15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
+  evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
+  # scrape_timeout is set to the global default (10s).
+
+# Alertmanager configuration
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+          # - alertmanager:9093
+
+# Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
+rule_files:
+  # - "first_rules.yml"
+  # - "second_rules.yml"
+
+## A scrape configuration containing exactly one endpoint to scrape:
+## Here it's Prometheus itself.
+#scrape_configs:
+#  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+#  - job_name: "prometheus"
+#
+#    # metrics_path defaults to '/metrics'
+#    # scheme defaults to 'http'.
+#
+#    static_configs:
+#      - targets: ["localhost:9090"]
+
+############################################################
+# static_configs 靜態配置
+# 每次配置都需要重啟 Prometheus 服務
+# 使用 http://172:20:10:2:9090/targets 可查看 Targets
+############################################################
+#scrape_configs:
+#  - job_name: 'prometheus-job'
+#    static_configs: # 靜態配置方式，每次配置都需要重啟 Prometheus 服務
+#      - targets: ['172.20.10.2:9090'] # 查詢本機IP: ifconfig | grep "inet " | grep -v 127.0.0.1
+#        labels:
+#          instance: prometheus
+#          service: prometheus-service
+#
+#  - job_name: 'node-exporter-job'
+#    static_configs: # 靜態配置方式，每次配置都需要重啟 Prometheus 服務
+#      - targets: ['172.20.10.2:9100'] # 查詢本機IP: ifconfig | grep "inet " | grep -v 127.0.0.1
+#        labels:
+#          instance: node-exporter
+#          service: node-exporter-service
+
+############################################################
+# File-based service discovery
+# 只要文件發生變化，Prometheus 就會自動加載
+# 使用 http://172:20:10:2:9090/targets 可查看 Targets
+############################################################
+scrape_configs:
+  - job_name: 'prometheus-job'
+    file_sd_configs:
+      # - files: ['/usr/local/prometheus/groups/prometheus-job/*.json'] # 使用 json
+      - files: ['/usr/local/prometheus/groups/prometheus-job/*.yaml'] # 使用 yaml
+
+  - job_name: 'node-exporter-job'
+    file_sd_configs:
+      # - files: ['/usr/local/prometheus/groups/node-exporter-job/*.json'] # 使用 json
+      - files: ['/usr/local/prometheus/groups/node-exporter-job/*.yaml'] # 使用 yaml
+
+  - job_name: 'application-job'
+    file_sd_configs:
+      - files: [ '/usr/local/prometheus/groups/spring-application-job/*.yaml' ] # 使用 yaml
+    scrape_interval: "5s"
+    metrics_path: '/my-actuator/prometheus' # http://localhost:7001/my-actuator/prometheus  (see spring-app-job.yaml)

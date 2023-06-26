@@ -1,0 +1,5 @@
+- targets:
+    - "192.168.8.124:9100"
+  labels:
+    instance: "node-exporter"
+    service: "node-exporter-service"

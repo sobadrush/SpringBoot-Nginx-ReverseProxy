@@ -1,0 +1,5 @@
+- targets:
+    - 192.168.8.124:9090
+  labels:
+    instance: prometheus
+    service: prometheus-service

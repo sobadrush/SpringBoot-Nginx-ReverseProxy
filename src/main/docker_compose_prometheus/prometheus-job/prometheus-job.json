@@ -1,0 +1,11 @@
+[
+  {
+    "targets": [
+      "172.20.10.2:9090"
+    ],
+    "labels": {
+      "instance": "prometheus",
+      "service": "prometheus-service"
+    }
+  }
+]

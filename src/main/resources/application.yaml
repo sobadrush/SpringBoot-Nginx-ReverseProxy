@@ -3,6 +3,8 @@ server:
   servlet:
     context-path: /RogerReverseProxyTest
 spring:
+  application:
+    name: "Roger-SpringBoot-Nginx"
   profiles:
     default: dev # 未指定，會使用 dev 作為預設 profile
     active: dev # 啟動 dev profile
@@ -55,7 +57,8 @@ spring:
       on-profile: dev
 management: # Spring Actuator 監控(http://127.0.0.1:7001/my-actuator/health / http://127.0.0.1:7001/my-actuator/env)
   server:
-    address: 127.0.0.1
+    # address: 127.0.0.1
+    address: 192.168.8.124 # for Prometheus (vs. spring-app-job.yaml)
     port: 7001
   endpoints:
     web:
@@ -68,6 +71,9 @@ management: # Spring Actuator 監控(http://127.0.0.1:7001/my-actuator/health / 
       show-details: always
     shutdown:
       enabled: true
+  metrics:
+    tags:
+      application: "${spring.application.name}-Prometheus" # Prometheus - 將名稱添加到 web 畫面，方便識別
 application: # 以下是自訂參數
   email: dev@gmail.com
   domain: domain-dev
