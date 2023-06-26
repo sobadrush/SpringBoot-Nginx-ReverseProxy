@@ -57,5 +57,6 @@
 # 監控
 | # |                          說明                          |            URL            |
 |:-:|:----------------------------------------------------:|:-------------------------:|
-| 1 | Spring Boot 使用 Micrometer 集成 Prometheus 监控 Java 应用性能 | https://liba.ro/5zdf2a9r9 |
-| 2 |           [古古] SpringBoot - 監控工具 Actuator            | https://liba.ro/5zdf2qycp |
+| 1 |           [古古] SpringBoot - 監控工具 Actuator            | https://liba.ro/5zdf2qycp |
+| 2 | Spring Boot 使用 Micrometer 集成 Prometheus 监控 Java 应用性能 | https://liba.ro/5zdf2a9r9 |
+| 3 |         Prometheus 监控报警系统 AlertManager 之邮件告警         | https://liba.ro/5zdf4us3n |
