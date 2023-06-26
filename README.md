@@ -52,3 +52,10 @@
 | 18 |                   springboot之入门2篇(yaml语法和使用）                   |      https://blog.csdn.net/nuyoahso/article/details/115320410       |
 | 19 |                       CommandLineRunner                        | https://z.itpub.net/article/detail/9359DFC80B3615560719EA1529CD2520 |
 | 20 |                           NGINX 反向代理                           |           https://ithelp.ithome.com.tw/articles/10221704            |
+
+
+# 監控
+| # |                          說明                          |            URL            |
+|:-:|:----------------------------------------------------:|:-------------------------:|
+| 1 | Spring Boot 使用 Micrometer 集成 Prometheus 监控 Java 应用性能 | https://liba.ro/5zdf2a9r9 |
+| 2 |           [古古] SpringBoot - 監控工具 Actuator            | https://liba.ro/5zdf2qycp |
