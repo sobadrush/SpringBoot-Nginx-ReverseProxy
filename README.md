@@ -27,6 +27,7 @@
     - http://localhost:7001/my-actuator/metrics
     - http://localhost:7001/my-actuator/mappings
     - http://localhost:7001/my-actuator/beans
+    - http://localhost:7001/my-actuator/prometheus
 
 | #  |                               說明                               |                                 URL                                 |
 |:--:|:--------------------------------------------------------------:|:-------------------------------------------------------------------:|
