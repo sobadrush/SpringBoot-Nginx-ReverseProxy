@@ -58,7 +58,8 @@ spring:
 management: # Spring Actuator 監控(http://127.0.0.1:7001/my-actuator/health / http://127.0.0.1:7001/my-actuator/env)
   server:
     # address: 127.0.0.1
-    address: 192.168.8.124 # for Prometheus (vs. spring-app-job.yaml)
+    address: 0.0.0.0 # for Prometheus (vs. spring-app-job.yaml), allow all ip access
+    # address: 192.168.8.124 # for Prometheus (vs. spring-app-job.yaml)
     port: 7001
   endpoints:
     web:
