@@ -23,8 +23,8 @@ spring:
       settings:
         web-allow-others: true # 允許非這台 Server的人也可以訪問 H2-Console
   datasource:
-    url: jdbc:h2:mem:MyH2DB # h2 database 連接位址(In-Memory)
-    # url: jdbc:h2:file:./MyH2DB;AUTO_SERVER=TRUE # h2 database 連接位址(file)
+    # url: jdbc:h2:mem:MyH2DB # h2 database 連接位址(In-Memory)
+    url: jdbc:h2:file:./MyH2DB;AUTO_SERVER=TRUE # h2 database 連接位址(file)
     driver-class-name: org.h2.Driver # 配置 driver
     username: sa # database 用戶名
     password: sa123456 # database 密碼
@@ -42,6 +42,7 @@ spring:
       schema-locations: classpath:./Database_init/Create_H2_TABLE_Script.sql
       data-locations: classpath:./Database_init/Insert_H2_TABLE_Script.sql
       continue-on-error: false
+      mode: always # # Spring Boot >= v2.5.0，要開啟，才不會只對 embedded DB (In-Memory) (H2, HSQLDB, ...) 初始化
 logging:
     level:
       org.hibernate.type.descriptor.sql: trace # 顯示 SQL 參數
