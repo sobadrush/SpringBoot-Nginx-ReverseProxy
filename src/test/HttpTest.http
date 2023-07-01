@@ -14,7 +14,7 @@ POST http://127.0.0.1:8080/RogerReverseProxyTest/auth/getToken
 Content-Type: application/json
 
 {
-  "email": "Jane1@example.com",
+  "email": "Jane@example.com",
   "password": "password2"
 }
 
