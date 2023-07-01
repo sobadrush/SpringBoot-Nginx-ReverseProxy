@@ -25,10 +25,13 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    private AuthService authService;
+    private AuthService authService; // 繼承 UserDetailsService
 
     @Autowired
     private JWTAuthenticationFilter jwtAuthenticationFilter;
+
+    @Autowired
+    private MyDaoAuthenticationProvider myDaoAuthenticationProvider;
 
     /**
      * 管理 Authentication 元件
@@ -62,9 +65,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        // auth.authenticationProvider(new DaoAuthenticationProvider()); // 向 AuthenticationManager 提供 AuthenticationProvider 來達成轉換 Authentication 的功能
-        auth.userDetailsService(authService)
-                .passwordEncoder(this.passwordEncoder());
+        auth.authenticationProvider(myDaoAuthenticationProvider); // 向 AuthenticationManager 提供 AuthenticationProvider 來達成轉換 Authentication 的功能
+        auth.userDetailsService(authService).passwordEncoder(this.passwordEncoder());
     }
 
     /**
