@@ -1,0 +1,52 @@
+# 取得 token - 正向
+POST http://127.0.0.1:8080/RogerReverseProxyTest/auth/getToken
+Content-Type: application/json
+
+{
+  "email": "w9014669@nanshan.com.tw",
+  "password": "qweasd123"
+}
+
+###
+
+# 取得 token - DB 密碼未加密
+POST http://127.0.0.1:8080/RogerReverseProxyTest/auth/getToken
+Content-Type: application/json
+
+{
+  "email": "Jane1@example.com",
+  "password": "password2"
+}
+
+###
+
+# 取得 token - email 不存在
+POST http://127.0.0.1:8080/RogerReverseProxyTest/auth/getToken
+Content-Type: application/json
+
+{
+  "email": "xxxooo@example.com",
+  "password": "GGGGG"
+}
+
+###
+
+# Hello World - 有帶 token
+GET http://127.0.0.1:8080/RogerReverseProxyTest/HelloWorld
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2ODgxOTEzODksInVzZXJJZCI6ImM3YTdmOWU3LTZhM2ItNGI0ZC1iMWZlLThmOTNmNTk2YWZmMSJ9.fPwPCS9vSgXKMbthgB9TZxXfXKZD0odtzoYTavn7gXw
+Accept: text/plain
+
+###
+
+# 查詢 Dept - 有帶 token
+POST http://127.0.0.1:8080/RogerReverseProxyTest/getDept/研發部
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2ODgxOTEyNjEsInVzZXJJZCI6ImM3YTdmOWU3LTZhM2ItNGI0ZC1iMWZlLThmOTNmNTk2YWZmMSJ9.TeQrj9f9F9wq9N6piB9HnIeoNmEeaXLaAtE63TbExbA
+
+###
+
+# 查詢 Dept - 未帶 token
+POST http://127.0.0.1:8080/RogerReverseProxyTest/getDept/研發部
+#Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2ODgxOTEyNjEsInVzZXJJZCI6ImM3YTdmOWU3LTZhM2ItNGI0ZC1iMWZlLThmOTNmNTk2YWZmMSJ9.TeQrj9f9F9wq9N6piB9HnIeoNmEeaXLaAtE63TbExbA
+
+###
+
