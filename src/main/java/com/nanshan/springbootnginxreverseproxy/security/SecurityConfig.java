@@ -64,15 +64,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         // auth.authenticationProvider(new DaoAuthenticationProvider()); // 向 AuthenticationManager 提供 AuthenticationProvider 來達成轉換 Authentication 的功能
         auth.userDetailsService(authService)
-            .passwordEncoder(this.passwordEncoder());
+                .passwordEncoder(this.passwordEncoder());
     }
 
     /**
      * 密碼雜湊設定
      * 採用 BCrypt 演算法進行雜湊
+     * BCrypt是一種密碼哈希函式和密碼加密演算法。它採用適用於 Blowfish 密碼演算法的改良版本，並使用適當的鹽值（Salt）和指定的計算迭代次數來增加安全性
      */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+    /**
+     * 若 DB 中的密碼不想加密，可使用 NoOpPasswordEncoder
+     */
+    // @Bean
+    // public PasswordEncoder passwordEncoder() {
+    //     return NoOpPasswordEncoder.getInstance();
+    // }
 }
