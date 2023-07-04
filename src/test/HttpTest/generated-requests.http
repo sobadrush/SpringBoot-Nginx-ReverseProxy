@@ -1,11 +1,18 @@
 ### 測試 @ResponseStatus -「自訂 404-NotFound」
 GET localhost:8080/RogerReverseProxyTest/TestResponseStatusController/helloResponseStatus?empName=RogerLo
 
+
 ### 測試 @ResponseStatus -「自訂 自訂 200-Success」
 POST http://localhost:8080/RogerReverseProxyTest/TestResponseStatusController/helloResponseStatus200
 Content-Type: application/x-www-form-urlencoded
 
 empName=RogerLo
 
+
 ### 測試 @ResponseStatus -「500 ERROR」，故意送空字串 empName
 GET http://localhost:8080/RogerReverseProxyTest/TestResponseStatusController/helloResponseStatus500?empName=
+
+
+### 測試觸發 @ExceptionHandler
+GET http://localhost:8080/RogerReverseProxyTest/TestExtendsBaseController/testTriggerExceptionHandler
+Accept: application/json
