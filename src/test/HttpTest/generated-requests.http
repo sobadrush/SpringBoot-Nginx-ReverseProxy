@@ -16,3 +16,36 @@ GET http://localhost:8080/RogerReverseProxyTest/TestResponseStatusController/hel
 ### 測試觸發 @ExceptionHandler
 GET http://localhost:8080/RogerReverseProxyTest/TestExtendsBaseController/testTriggerExceptionHandler
 Accept: application/json
+
+
+### 測試 @Valid 驗證 RequestBody
+POST http://localhost:8080/RogerReverseProxyTest/TestValidController/getDeptData1
+Content-Type: application/json
+
+{
+  "deptNo": 9527,
+  "deptName": "飛彈部",
+  "deptLoc": "桃園龍潭"
+}
+
+
+### 測試 @Valid 驗證 RequestBody - 測試故意放空值
+POST http://localhost:8080/RogerReverseProxyTest/TestValidController/getDeptData1
+Content-Type: application/json
+
+{
+  "deptNo": "999",
+  "deptName": "飛彈部3",
+  "deptLoc": "桃園龍潭"
+}
+
+
+### 測試 @Valid 驗證 RequestBody - 測試故意放空值(使用 BindingResult)
+POST http://localhost:8080/RogerReverseProxyTest/TestValidController/getDeptData2
+Content-Type: application/json
+
+{
+  "deptNo": "999",
+  "deptName": "飛彈部3",
+  "deptLoc": "桃園龍潭"
+}
