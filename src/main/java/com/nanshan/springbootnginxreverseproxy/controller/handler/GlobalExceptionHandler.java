@@ -4,6 +4,7 @@ import com.nanshan.springbootnginxreverseproxy.exception.MySystemException;
 import com.nanshan.springbootnginxreverseproxy.model.ApiResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.Ordered;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;
@@ -21,6 +22,7 @@ import java.util.Arrays;
  * <p>
  * ref. https://www.jianshu.com/p/12e1a752974d
  */
+@org.springframework.core.annotation.Order(Ordered.HIGHEST_PRECEDENCE)
 @ControllerAdvice // 也是 @Component
 // @RestControllerAdvice // @ControllerAdvice + @ResponseBody + @Component
 @Slf4j
