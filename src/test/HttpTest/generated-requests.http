@@ -34,8 +34,8 @@ POST http://localhost:8080/RogerReverseProxyTest/TestValidController/getDeptData
 Content-Type: application/json
 
 {
-  "deptNo": "999",
-  "deptName": "飛彈部3",
+  "deptNo": "",
+  "deptName": null,
   "deptLoc": "桃園龍潭"
 }
 
@@ -47,5 +47,19 @@ Content-Type: application/json
 {
   "deptNo": "999",
   "deptName": "飛彈部3",
+  "deptLoc": "桃園龍潭"
+}
+
+### 測試觸發 GlobalExceptionHandler
+GET http://localhost:8080/RogerReverseProxyTest/TestGlobalExceptionHandlerController/triggerGlobalExceptionHandler
+
+
+### 測試 @Valid 觸發 GlobalExceptionHandler.handleBindException - 測試故意放空值
+POST http://localhost:8080/RogerReverseProxyTest/TestGlobalExceptionHandlerController/getDeptData1
+Content-Type: application/json
+
+{
+  "deptNo": "",
+  "deptName": "",
   "deptLoc": "桃園龍潭"
 }

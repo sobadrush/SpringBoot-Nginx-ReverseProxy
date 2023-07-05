@@ -1,6 +1,9 @@
 package com.nanshan.springbootnginxreverseproxy.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.http.HttpStatus;
 
@@ -9,6 +12,9 @@ import org.springframework.http.HttpStatus;
  * @date 2023/7/4
  */
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class ApiResult<T> {
 
     private T result;
@@ -16,9 +22,6 @@ public class ApiResult<T> {
     private int errorCode;
     private String errorMessage;
     private String errorDetail;
-
-    public ApiResult() {
-    }
 
     public ApiResult(T tt) {
         this.result = tt;
