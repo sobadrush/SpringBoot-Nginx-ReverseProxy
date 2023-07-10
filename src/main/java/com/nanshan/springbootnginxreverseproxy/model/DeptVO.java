@@ -29,10 +29,12 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class DeptVO implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     @Id
     @Column(name = "DEPTNO", nullable = false, unique = true)
     @NotNull(message = "部門編號不可為空")
-    @Min(value = 1000, message = "部門編號需 > 1000")
+    @Min(value = 0, message = "部門編號需 > 0")
     private Long deptNo;
 
     @Column(name = "DNAME", nullable = true, unique = false)
