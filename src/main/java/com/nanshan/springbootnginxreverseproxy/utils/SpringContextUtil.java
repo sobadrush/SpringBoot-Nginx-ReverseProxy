@@ -1,5 +1,6 @@
 package com.nanshan.springbootnginxreverseproxy.utils;
 
+import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
@@ -13,45 +14,46 @@ import org.springframework.stereotype.Component;
 @Component
 public class SpringContextUtil implements ApplicationContextAware {
 
-    public static ApplicationContext context;
+    public static ApplicationContext appContext;
 
-    public void setApplicationContext(ApplicationContext appContext) {
+    @Override
+    public void setApplicationContext(ApplicationContext context) throws BeansException {
         if (appContext == null) {
-            context = appContext;
+            appContext = context;
         }
     }
 
     public static Object getBean(String beanId) {
-        return context.getBean(beanId);
+        return appContext.getBean(beanId);
     }
 
     public static <T> T getBean(Class<T> clazz) {
-        if (context == null) {
+        if (appContext == null) {
             return null;
         }
-        return (T) context.getBean(clazz);
+        return (T) appContext.getBean(clazz);
     }
 
     public static <T> T getBean(String beanId, Class<T> clazz) {
-        if (context == null) {
+        if (appContext == null) {
             return null;
         }
-        return (T) context.getBean(beanId, clazz);
+        return (T) appContext.getBean(beanId, clazz);
     }
 
     public static Boolean containsBean(String beanId) {
-        if (context == null) {
+        if (appContext == null) {
             return null;
         }
-        return context.containsBean(beanId);
+        return appContext.containsBean(beanId);
     }
 
     public static Boolean isSingleton(String beanId) {
-        return context.isSingleton(beanId);
+        return appContext.isSingleton(beanId);
     }
 
     public static Class<? extends Object> getType(String beanId) {
-        return context.getType(beanId);
+        return appContext.getType(beanId);
     }
 
 }
