@@ -14,7 +14,7 @@ services:
       - "18787:8787"
     environment:
       - SPRING_CONFIG_LOCATION=/app/spring-configs/
-      - SPRING_PROFILE_ACTIVE=dev
+      - SPRING_PROFILES_ACTIVE=dev
       - TZ=Asia/Taipei
     volumes:
       - ./spring_settings/application.yaml:/app/spring-configs/application.yaml # 將 spring 設定檔 volume 到 container 中
