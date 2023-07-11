@@ -13,34 +13,45 @@ import org.springframework.stereotype.Component;
 @Component
 public class SpringContextUtil implements ApplicationContextAware {
 
-    public static ApplicationContext applicationContext;
+    public static ApplicationContext context;
 
-    public void setApplicationContext(ApplicationContext applicationContext) {
-        SpringContextUtil.applicationContext = applicationContext;
+    public void setApplicationContext(ApplicationContext appContext) {
+        if (appContext == null) {
+            context = appContext;
+        }
     }
 
-    public static Object getBean(String name) {
-        return applicationContext.getBean(name);
+    public static Object getBean(String beanId) {
+        return context.getBean(beanId);
     }
 
     public static <T> T getBean(Class<T> clazz) {
-        return applicationContext.getBean(clazz);
+        if (context == null) {
+            return null;
+        }
+        return (T) context.getBean(clazz);
     }
 
-    public static <T> T getBean(String name, Class<T> clazz) {
-        return applicationContext.getBean(name, clazz);
+    public static <T> T getBean(String beanId, Class<T> clazz) {
+        if (context == null) {
+            return null;
+        }
+        return (T) context.getBean(beanId, clazz);
     }
 
-    public static Boolean containsBean(String name) {
-        return applicationContext.containsBean(name);
+    public static Boolean containsBean(String beanId) {
+        if (context == null) {
+            return null;
+        }
+        return context.containsBean(beanId);
     }
 
-    public static Boolean isSingleton(String name) {
-        return applicationContext.isSingleton(name);
+    public static Boolean isSingleton(String beanId) {
+        return context.isSingleton(beanId);
     }
 
-    public static Class<? extends Object> getType(String name) {
-        return applicationContext.getType(name);
+    public static Class<? extends Object> getType(String beanId) {
+        return context.getType(beanId);
     }
 
 }
