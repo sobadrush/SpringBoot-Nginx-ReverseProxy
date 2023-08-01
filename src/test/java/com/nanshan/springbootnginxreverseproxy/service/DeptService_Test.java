@@ -24,9 +24,12 @@ public class DeptService_Test extends BaseTest {
     @Test
     @DisplayName("[Test_001] 測試使用 Example 查詢，By Id")
     @Disabled
-    void test_001() {
-        DeptVO deptByDeptID = deptService.getDeptById(2L);
-        System.out.println("deptByDeptID = " + deptByDeptID);
+    void test_001() throws InterruptedException {
+        for (int i = 0; i < 60; i++) {
+            DeptVO deptByDeptID = deptService.getDeptById(2L);
+            System.out.println("deptByDeptID = " + deptByDeptID);
+            Thread.sleep(1000);
+        }
     }
 
     @Test

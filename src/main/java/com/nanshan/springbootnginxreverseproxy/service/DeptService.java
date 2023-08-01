@@ -76,7 +76,9 @@ public class DeptService {
     /**
      * Example 查詢：By DeptId
      */
-    @Cacheable(value = { "deptCached" }, key = "#deptId")
+    // @Cacheable(value = { "deptCached" }, key = "#deptId")
+    @Cacheable(value = { "Cache-A" }, key = "#deptId")
+    // @Cacheable(value = { "Cache-B" }, key = "#deptId")
     public DeptVO getDeptById(long deptId) {
         log.info("... 呼叫 getDeptById ...");
         DeptVO deptExample = new DeptVO();

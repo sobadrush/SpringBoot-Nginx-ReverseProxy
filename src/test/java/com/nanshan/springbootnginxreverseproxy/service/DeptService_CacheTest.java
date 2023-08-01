@@ -28,8 +28,8 @@ public class DeptService_CacheTest extends BaseTest {
     @DisplayName("[Test_001] 測試 @Cacheable：連續查詢，使用 Cache") // 因為有Cache設置，每3秒才會真正進DB訪問一次
     @Disabled
     void test_001() throws InterruptedException {
-        // 連續查詢15秒
-        this.queryDeptInSeconds(15, 2L);
+        // 連續查詢60秒
+        this.queryDeptInSeconds(60, 2L);
     }
 
     @Test
