@@ -14,11 +14,14 @@ import java.util.concurrent.CompletableFuture;
 @Service
 public class FakeDataService {
 
-    private void sleep(int secs) {
-        try {
-            Thread.sleep(secs);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+    private void sleepSeconds(int secs, String threadName) {
+        for (int i = secs; i > 0 ; i--) {
+            try {
+                System.out.println(MessageFormat.format("[{0}] {1}s ...", threadName, i));
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -26,7 +29,7 @@ public class FakeDataService {
     public DeptVO getFakeDept001() {
         String thName = Thread.currentThread().getName();
         System.out.println(MessageFormat.format("[{0}] running getFakeDept001()", thName));
-        this.sleep(1000);
+        this.sleepSeconds(1, thName);
         return DeptVO.builder()
                 .deptNo(2222L)
                 .deptName("國防部")
@@ -36,9 +39,9 @@ public class FakeDataService {
 
     // @Async("my-executor")
     public DeptVO getFakeDept002() {
-        this.sleep(5000);
         String thName = Thread.currentThread().getName();
         System.out.println(MessageFormat.format("[{0}] running getFakeDept002()", thName));
+        this.sleepSeconds(5, thName);
         return DeptVO.builder()
                 .deptNo(3333L)
                 .deptName("交通部")
@@ -50,7 +53,7 @@ public class FakeDataService {
     public CompletableFuture<DeptVO> getFakeDeptFuture001() {
         String thName = Thread.currentThread().getName();
         System.out.println(MessageFormat.format("[{0}] running getFakeDept001()", thName));
-        this.sleep(1000);
+        this.sleepSeconds(1, thName);
         return CompletableFuture.completedFuture(DeptVO.builder()
                 .deptNo(2222L)
                 .deptName("國防部")
@@ -61,9 +64,9 @@ public class FakeDataService {
 
     @Async("my-executor")
     public CompletableFuture<DeptVO> getFakeDeptFuture002() {
-        this.sleep(5000);
         String thName = Thread.currentThread().getName();
         System.out.println(MessageFormat.format("[{0}] running getFakeDept002()", thName));
+        this.sleepSeconds(5, thName);
         return CompletableFuture.completedFuture(DeptVO.builder()
                 .deptNo(3333L)
                 .deptName("交通部")
