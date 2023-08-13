@@ -24,7 +24,7 @@ import java.util.Arrays;
  */
 @SpringBootApplication
 @Log4j2
-@EnableConfigurationProperties(value = ApplicationProps.class)
+@EnableConfigurationProperties(value = { ApplicationProps.class, RedisProps.class })
 @Import(value = { MyCacheConfig.class }) // not necessary
 @EnableCaching
 public class SpringBootNginxReverseProxyApplication implements CommandLineRunner {
