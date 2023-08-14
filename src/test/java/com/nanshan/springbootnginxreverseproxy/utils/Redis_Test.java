@@ -15,6 +15,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import javax.annotation.Resource;
 import java.time.Duration;
 import java.util.List;
 import java.util.concurrent.CompletionStage;
@@ -34,14 +35,17 @@ public class Redis_Test extends BaseTest {
 
     private static String REDIS_KEY = "DATA_TODO:9014669";
 
+    @Resource(name = "asyncCmd_db1") // 因為是動態註冊，故 IDE 偵測不到，正常！
+    private RedisAsyncCommands redisAsyncCmd;
+
     @Test
     @DisplayName("[Test_001] 測試 Lettuce Redis 連線操作: SET")
     @Disabled
-    void test_001() {
-        RedisAsyncCommands<String, String> redisAsyncCmd = redisConn.getRedisAsyncCmd();
+    void test_001() throws ExecutionException, InterruptedException {
+        // RedisAsyncCommands<String, String> redisAsyncCmd = redisConn.getRedisAsyncCmd(3);
 
         RedisFuture<String> redisFuture = redisAsyncCmd.set(REDIS_KEY, fakeJsonData());
-        redisAsyncCmd.expire(REDIS_KEY, Duration.ofMinutes(1));
+        redisAsyncCmd.expire(REDIS_KEY, Duration.ofMinutes(10));
 
         // [方式1 阻塞]: get
         // String result = redisFuture.get();
@@ -57,8 +61,8 @@ public class Redis_Test extends BaseTest {
     @Test
     @DisplayName("[Test_002] 測試 Lettuce Redis 連線操作: persist")
     @Disabled
-    void Test_002() throws ExecutionException, InterruptedException {
-        RedisAsyncCommands<String, String> redisAsyncCmd = redisConn.getRedisAsyncCmd();
+    void test_002() throws ExecutionException, InterruptedException {
+        RedisAsyncCommands<String, String> redisAsyncCmd = redisConn.getRedisAsyncCmd(1);
         // 設定到期時間為無限期
         RedisFuture<Boolean> redisFuture = redisAsyncCmd.persist(REDIS_KEY);
         System.out.println("[阻塞] Redis Execute Result: " + redisFuture.get());
@@ -67,8 +71,8 @@ public class Redis_Test extends BaseTest {
     @Test
     @DisplayName("[Test_003] 測試 Lettuce Redis 連線操作: GET")
     @Disabled
-    void Test_003() throws InterruptedException {
-        RedisAsyncCommands<String, String> redisAsyncCmd = redisConn.getRedisAsyncCmd();
+    void test_003() throws InterruptedException, ExecutionException {
+        RedisAsyncCommands<String, String> redisAsyncCmd = redisConn.getRedisAsyncCmd(1);
         RedisFuture<String> redisFuture = redisAsyncCmd.get(REDIS_KEY);
 
         // redisFuture.thenAccept(data -> {
@@ -87,7 +91,8 @@ public class Redis_Test extends BaseTest {
         CompletionStage<Void> completionStage = redisFuture.thenAccept(data -> {
             List<ToDoEntity> toDoList = null;
             try {
-                toDoList = objectMapper.readValue(data, new TypeReference<List<ToDoEntity>>() {});
+                toDoList = objectMapper.readValue(data, new TypeReference<List<ToDoEntity>>() {
+                });
                 toDoList.forEach(System.out::println);
             } catch (JsonProcessingException e) {
                 throw new RuntimeException(e);
@@ -99,8 +104,8 @@ public class Redis_Test extends BaseTest {
     @Test
     @DisplayName("[Test_004] 測試 Lettuce Redis 連線操作: DEL")
     @Disabled
-    void Test_004() {
-        RedisAsyncCommands<String, String> redisAsyncCmd = redisConn.getRedisAsyncCmd();
+    void test_004() throws ExecutionException, InterruptedException {
+        RedisAsyncCommands<String, String> redisAsyncCmd = redisConn.getRedisAsyncCmd(1);
         RedisFuture<Long> redisFuture = redisAsyncCmd.del(REDIS_KEY);
         System.out.println("[阻塞] Redis Execute Result: " + redisFuture);
     }
