@@ -18,8 +18,11 @@ import javax.annotation.Resource;
 import java.io.IOException;
 import java.time.Duration;
 
+/**
+ * Spring Cached 使用 Redis 的配置類別
+ */
 @Configuration
-public class RedisCacheConfig implements CachingConfigurer {
+public class MyRedisCacheConfig implements CachingConfigurer {
 
     @Resource
     private RedisConnectionFactory redisConnectionFactory;
@@ -27,18 +30,18 @@ public class RedisCacheConfig implements CachingConfigurer {
     @Bean
     @Override
     public CacheManager cacheManager() {
-        return new RedisCacheManager(RedisCacheWriter.nonLockingRedisCacheWriter(redisConnectionFactory), redisCacheConfiguration());
+        return new RedisCacheManager(RedisCacheWriter.nonLockingRedisCacheWriter(redisConnectionFactory), this.redisCacheConfiguration());
     }
 
-    public RedisCacheConfiguration redisCacheConfiguration() {
+    private RedisCacheConfiguration redisCacheConfiguration() {
         return RedisCacheConfiguration.defaultCacheConfig()
                 .entryTtl(Duration.ofMinutes(5))
                 .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(RedisSerializer.string()))
                 .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new JacksonGzipSerializer()));
-
     }
 
     private class JacksonGzipSerializer extends GenericJackson2JsonRedisSerializer {
+
         @Override
         public byte[] serialize(Object source) throws SerializationException {
             byte[] raw = super.serialize(source);
@@ -58,6 +61,7 @@ public class RedisCacheConfig implements CachingConfigurer {
                 throw new SerializationException("Exception", ioe);
             }
         }
+
     }
 
 }

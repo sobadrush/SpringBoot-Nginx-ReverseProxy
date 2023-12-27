@@ -43,6 +43,11 @@ spring:
       data-locations: classpath:./Database_init/Insert_H2_TABLE_Script.sql
       continue-on-error: false
       mode: always # # Spring Boot >= v2.5.0，要開啟，才不會只對 embedded DB (In-Memory) (H2, HSQLDB, ...) 初始化
+  redis: # redis 連線資訊
+    host: 127.0.0.1
+    port: 6379
+    password: sa12345
+    database: 3
 logging:
     level:
       org.hibernate.type.descriptor.sql: trace # 顯示 SQL 參數

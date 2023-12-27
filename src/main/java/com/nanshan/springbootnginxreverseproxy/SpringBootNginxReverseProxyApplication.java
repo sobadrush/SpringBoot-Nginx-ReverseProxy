@@ -13,7 +13,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Import;
 import org.springframework.core.env.Environment;
 
 import java.text.MessageFormat;
@@ -25,7 +24,7 @@ import java.util.Arrays;
 @SpringBootApplication
 @Log4j2
 @EnableConfigurationProperties(value = ApplicationProps.class)
-@Import(value = { MyCacheConfig.class }) // not necessary
+// @Import(value = { MyRedisCacheConfig.class }) // not necessary
 @EnableCaching
 public class SpringBootNginxReverseProxyApplication implements CommandLineRunner {
 
