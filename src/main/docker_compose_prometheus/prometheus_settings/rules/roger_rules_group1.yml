@@ -1,0 +1,12 @@
+groups:
+  - name: Test-Group-001 # 組的名字，在這個文件中必須要唯一
+    rules:
+      - alert: InstanceDown # 告警的名字，在組中需要唯一
+        # expr: up == 0 # 表達式, 執行結果爲true: 表示需要告警
+        expr: up{instance="springboot2-prometheus", job="application-job", service="springboot2-prometheus-service"} == 0 # 表達式, 執行結果爲 true: 表示需要告警
+        for: 1m # 超過多少時間才認爲需要告警(即 up == 0 需要持續的時間)
+        labels:
+          severity: warning # 自訂標籤，允許使用者指定要附加到警告上的一組附加標籤
+        annotations: # 用於指定一組附加訊息，例如用於描述警告詳細資訊的文字等，annotations的內容在警告產生時會一同作為參數發送到Alertmanager
+          summary: "服務 {{ $labels.instance }} 下線了"
+          description: "{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 1 minutes."

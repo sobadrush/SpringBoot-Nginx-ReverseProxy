@@ -1,5 +1,5 @@
 - targets:
-    - 192.168.8.124:7001
+    - 192.168.56.1:7001 # 此處 ip 要寫桌機的 IP，不能寫 localhost，因為是使用 docker 運行 Prometheus，localhost 會被視為 Prometheus container 自身
   labels:
     instance: springboot2-prometheus
     service: springboot2-prometheus-service

@@ -1,0 +1,11 @@
+groups:
+  - name: example
+    rules:
+      - alert: high_memory
+        # 當內存佔有率超過10%，持續1min,則觸發告警
+        expr: 100 - ((node_memory_MemAvailable_bytes{instance="node-exporter", job="node-exporter-job", service="node-exporter-service"} * 100) / node_memory_MemTotal_bytes{instance="node-exporter", job="node-exporter-job", service="node-exporter-service"}) > 90
+        for: 1m
+        labels:
+          severity: page
+        annotations:
+          summary: spike memory

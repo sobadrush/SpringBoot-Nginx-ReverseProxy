@@ -15,6 +15,8 @@ alerting:
 rule_files:
   # - "first_rules.yml"
   # - "second_rules.yml"
+  - ./rules/roger_rules_group1.yml
+  - ./rules/roger_rules_group2.yml
 
 ## A scrape configuration containing exactly one endpoint to scrape:
 ## Here it's Prometheus itself.
