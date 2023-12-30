@@ -70,6 +70,6 @@ public class SpringBootNginxReverseProxyApplication implements CommandLineRunner
     @Bean
     public MeterRegistryCustomizer<MeterRegistry> configurer(@Value("${spring.application.name}") String applicationName){
         log.log(Level.INFO, "applicationName = {}", applicationName);
-        return registry -> registry.config().commonTags("application", applicationName);
+        return registry -> registry.config().commonTags("application", applicationName).commonTags("AAA", "BBB");
     }
 }
