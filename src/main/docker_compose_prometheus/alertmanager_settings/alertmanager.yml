@@ -1,0 +1,25 @@
+global: # 全域配置，包含警報解決後的逾時時間、SMTP 相關配置、各種頻道通知的API 位址等等
+  resolve_timeout: 5m
+  smtp_smarthost: 'smtp.gmail.com:587' # 從哪裡寄信
+  smtp_from: 'sobadrush0510@gmail.com' # 哪個帳號管裡
+  smtp_auth_username: 'sobadrush0510@gmail.com'
+  smtp_auth_password: 'enyfidztkekilvqw' # 注意，此處密碼4個字元間，不需有空格
+  smtp_require_tls: true # 設置為 true 表示需要使用 TLS 連接到 SMTP 伺服器 (For 解決: err=send MAIL command: 530 5.7.0 Must issue a STARTTLS command first.)
+  smtp_hello: 'gmail.com' # 指定 SMTP 的 HELO 或 EHLO字串，這裡使用 'gmail.com'
+route: # 用來設定警報的分發策略，它是一個樹狀結構，按照深度優先從左向右的順序進行匹配
+  group_by: ['alertname']
+  group_wait: 5s # 將緩衝警報 5s 等待同一組其他條件，要是符合就一起寄
+  group_interval: 3s # 設置控制在發送同一組的進一步通知之前等待多長時間，並且時間間隔從發送的最後一個通知開始計算
+  repeat_interval: 2m # 2分鐘寄一次
+  receiver: 'email-monitoring'
+receivers: # 設定警告訊息接受者訊息，例如常用的 email、wechat、slack、webhook 等訊息通知方式
+  - name: 'email-monitoring'
+    email_configs: # 收件人
+      - to: 'frank780510@hotmail.com'
+        send_resolved: true
+inhibit_rules: # 抑制規則配置，當存在與另一組相符的警報（來源）時，抑制規則將停用與一組相符的警報（目標）
+  - source_match:
+      severity: 'critical'
+    target_match:
+      severity: 'warning'
+    equal: ['alertname', 'dev', 'instance']

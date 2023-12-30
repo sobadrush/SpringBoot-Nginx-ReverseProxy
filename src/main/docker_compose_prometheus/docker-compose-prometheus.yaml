@@ -44,3 +44,12 @@ services:
       - /etc/localtime:/etc/localtime:ro
     depends_on:
       - prometheus_app
+  alertmanager:
+    image: prom/alertmanager:latest
+    container_name: my-alertmanager
+    ports:
+      - "9093:9093"
+    volumes:
+      - ./alertmanager_settings/:/etc/alertmanager/
+    restart: always
+

@@ -1,0 +1,18 @@
+global: # 全域配置，包含警報解決後的逾時時間、SMTP 相關配置、各種頻道通知的API 位址等等
+  resolve_timeout: 5m
+route: # 用來設定警報的分發策略，它是一個樹狀結構，按照深度優先從左向右的順序進行匹配
+  group_by: ['alertname']
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 1h
+  receiver: 'web.hook'
+receivers: # 設定警告訊息接受者訊息，例如常用的email、wechat、slack、webhook 等訊息通知方式
+  - name: 'web.hook'
+    webhook_configs:
+      - url: 'http://127.0.0.1:5001/'
+inhibit_rules: # 抑制規則配置，當存在與另一組相符的警報（來源）時，抑制規則將停用與一組相符的警報（目標）
+  - source_match:
+      severity: 'critical'
+    target_match:
+      severity: 'warning'
+    equal: ['alertname', 'dev', 'instance']
