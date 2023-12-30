@@ -10,7 +10,7 @@ alerting:
     - static_configs:
         - targets:
           # - alertmanager:9093
-          - "my-alertmanager:9093"
+          - "my-alertmanager:9093" # 因為 Prometheus 與 alertmanager 是用同一個 docker-compose 啟動的(同一個 docker-network)，故可以直接用 container-name 訪問
 
 # Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
 rule_files:
