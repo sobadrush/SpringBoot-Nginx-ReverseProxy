@@ -10,14 +10,14 @@ alerting:
     - static_configs:
         - targets:
           # - alertmanager:9093
-          - "my-alertmanager:9093" # 因為 Prometheus 與 alertmanager 是用同一個 docker-compose 啟動的(同一個 docker-network)，故可以直接用 container-name 訪問
+          # - "my-alertmanager:9093" # 因為 Prometheus 與 alertmanager 是用同一個 docker-compose 啟動的(同一個 docker-network)，故可以直接用 container-name 訪問
 
 # Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
 rule_files:
-  # - "first_rules.yml"
-  # - "second_rules.yml"
-  - "./rules/roger_rules_group1.yml"
-  - "./rules/roger_rules_group2.yml"
+# - "first_rules.yml"
+# - "second_rules.yml"
+# - "./rules/roger_rules_group1.yml"
+# - "./rules/roger_rules_group2.yml"
 
 ## A scrape configuration containing exactly one endpoint to scrape:
 ## Here it's Prometheus itself.
@@ -67,8 +67,27 @@ scrape_configs:
       # - files: ['/usr/local/prometheus/groups/node-exporter-job/*.json'] # 使用 json
       - files: ['/usr/local/prometheus/groups/node-exporter-job/*.yaml'] # 使用 yaml
 
-  - job_name: 'application-job'
-    file_sd_configs:
-      - files: [ '/usr/local/prometheus/groups/spring-application-job/*.yaml' ] # 使用 yaml
-    scrape_interval: "5s"
-    metrics_path: '/my-actuator/prometheus' # http://localhost:7001/my-actuator/prometheus  (see spring-app-job.yaml)
+  #  - job_name: 'redis_exporter_targets'
+  #    static_configs:
+  #      - targets:
+  #          - redis://my-redis-gpa:6379
+  #    metrics_path: /scrape
+  #    relabel_configs:
+  #      - source_labels: [__address__]
+  #        target_label: __param_target
+  #      - source_labels: [__param_target]
+  #        target_label: instance
+  #      - target_label: __address__
+  #        replacement: 172.19.208.43:9121
+
+  ## config for scraping the exporter itself
+  - job_name: 'redis_exporter'
+    static_configs:
+      - targets:
+          - 172.19.208.43:9121
+
+#  - job_name: 'application-job'
+#    file_sd_configs:
+#      - files: [ '/usr/local/prometheus/groups/spring-application-job/*.yaml' ] # 使用 yaml
+#    scrape_interval: "5s"
+#    metrics_path: '/my-actuator/prometheus' # http://localhost:7001/my-actuator/prometheus  (see spring-app-job.yaml)
