@@ -1,5 +1,7 @@
 - targets:
-    - "192.168.56.1:9100" # 此處 ip 要寫桌機的 IP，不能寫 localhost，因為是使用 docker 運行 Prometheus，localhost 會被視為 Prometheus container 自身
+    # ＞ 此處 ip 要寫桌機的 IP，不能寫 localhost，因為是使用 docker 運行 Prometheus，localhost 會被視為 Prometheus container 自身
+    # ＞ 因為是用 docker-compose 運行，同屬於同一個 docker-network
+    - "my-node-exporter:9100"
   labels:
     instance: "node-exporter"
     service: "node-exporter-service"

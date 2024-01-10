@@ -23,15 +23,17 @@ services:
       - ./prometheus_settings/rules/:/etc/prometheus/rules/ # 告警規則
       - ./prometheus-job/:/usr/local/prometheus/groups/prometheus-job/ # 若為 Linux 環境下，可以把 . 改為 $PWD
       - ./node-exporter-job/:/usr/local/prometheus/groups/node-exporter-job/
-  node-exporter_app:
-    image: prom/node-exporter:latest
-    container_name: my-node-exporter
-    # platform: linux/amd64
-    restart: no
-    ports:
-      - "9100:9100"
-    volumes:
-      - /etc/localtime:/etc/localtime:ro
+
+#  node-exporter_app:
+#    image: prom/node-exporter:latest
+#    container_name: my-node-exporter
+#    # platform: linux/amd64
+#    restart: no
+#    ports:
+#      - "9100:9100"
+#    volumes:
+#      - /etc/localtime:/etc/localtime:ro
+
   grafana:
     image: grafana/grafana
     container_name: my-grafana
@@ -43,28 +45,23 @@ services:
       - /etc/localtime:/etc/localtime:ro
     depends_on:
       - prometheus_app
+
   my_redis:
     image: "redis:latest"
     container_name: "my-redis-gpa"
     ports:
       - "16379:6379"
+
   redis-exporter:
     image: oliver006/redis_exporter:latest
     container_name: "my-redis-exporter"
     restart: unless-stopped
     command: # ref. https://blog.csdn.net/manba_24/article/details/123008746
-      - "-redis.addr=my-redis-gpa:6379" # 設定 redis-exporter 連線的 redis 位置
-      # - "-redis.password=sa12345" # 設定 redis-exporter 連線的 redis 的密碼
-    expose:
+      - "-redis.addr=my-redis-gpa:6379" # 直接設定 redis-exporter 連線的 redis 位置 (此處使用 container name)
+      # - "-redis.password=sa12345" # 直接設定 redis-exporter 連線的 redis 的密碼
+    expose: # 僅能讓此 docker-compose 內的 container 們使用 (ref. https://blog.myctw.cc/post/df5.html)
       - 9121
-    ports:
+    ports: # 可用 Host 機器的 ip + 9121 port 訪問
       - "9121:9121"
-#  alertmanager:
-#    image: prom/alertmanager:latest
-#    container_name: my-alertmanager
-#    ports:
-#      - "9093:9093"
-#    volumes:
-#      - ./alertmanager_settings/:/etc/alertmanager/
-#    restart: always
-
+    depends_on:
+      - my_redis
