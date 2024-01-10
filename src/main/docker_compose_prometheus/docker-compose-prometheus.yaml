@@ -23,6 +23,7 @@ services:
       - ./prometheus_settings/rules/:/etc/prometheus/rules/ # 告警規則
       - ./prometheus-job/:/usr/local/prometheus/groups/prometheus-job/ # 若為 Linux 環境下，可以把 . 改為 $PWD
       - ./node-exporter-job/:/usr/local/prometheus/groups/node-exporter-job/
+      - ./redis-exporter-job/:/usr/local/prometheus/groups/redis-exporter-job/ # redis-exporter 監看 Redis
 
 #  node-exporter_app:
 #    image: prom/node-exporter:latest

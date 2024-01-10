@@ -1,0 +1,5 @@
+- targets:
+    # ＞ 此處 ip 要寫桌機的 IP，不能寫 localhost，因為是使用 docker 運行 Prometheus，localhost 會被視為 Prometheus container 自身
+    # ＞ 因為是用 docker-compose 運行，同屬於同一個 docker-network
+    - my-redis-exporter:9121
+  labels: {}

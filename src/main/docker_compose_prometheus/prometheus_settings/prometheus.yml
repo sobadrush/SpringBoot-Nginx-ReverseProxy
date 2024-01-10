@@ -62,40 +62,32 @@ scrape_configs:
       # - files: ['/usr/local/prometheus/groups/prometheus-job/*.json'] # 使用 json
       - files: ['/usr/local/prometheus/groups/prometheus-job/*.yaml'] # 使用 yaml
 
-  - job_name: 'node-exporter-job'
-    file_sd_configs:
-      # - files: ['/usr/local/prometheus/groups/node-exporter-job/*.json'] # 使用 json
-      - files: ['/usr/local/prometheus/groups/node-exporter-job/*.yaml'] # 使用 yaml
+#  - job_name: 'redis_exporter_targets'
+#    scrape_interval: 15s
+#    scrape_timeout: 10s
+#    static_configs: # 靜態配置方式，每次配置都需要重啟 Prometheus 服務
+#      - targets:
+#        - "redis://my-redis-gpa:6379"
+#    # metrics_path: /scrape
+#    metrics_path: /metrics # 指定抓取指標的路徑
+#    relabel_configs:
+#      # 將 __address__ 的值複製到 __param_target 標籤中
+#      - source_labels: [__address__]
+#        target_label: __param_target
+#      # 將 __param_target 的值複製到 instance 標籤中
+#      - source_labels: [__param_target]
+#        target_label: instance
+#      # 將 __address__ 的值替換為指定的新地址和端口
+#      - target_label: __address__
+#        replacement: my-redis-exporter:9121
 
-  - job_name: 'redis_exporter_targets'
-    scrape_interval: 15s
-    scrape_timeout: 10s
-    static_configs: # 靜態配置方式，每次配置都需要重啟 Prometheus 服務
-      - targets:
-        - "redis://my-redis-gpa:6379"
-    # metrics_path: /scrape
-    metrics_path: /metrics # 指定抓取指標的路徑
-    relabel_configs:
-      # 將 __address__ 的值複製到 __param_target 標籤中
-      - source_labels: [__address__]
-        target_label: __param_target
-      # 將 __param_target 的值複製到 instance 標籤中
-      - source_labels: [__param_target]
-        target_label: instance
-      # 將 __address__ 的值替換為指定的新地址和端口
-      - target_label: __address__
-        replacement: my-redis-exporter:9121
-
-  ## config for scraping the exporter itself
+  # config for scraping the exporter itself
   - job_name: 'redis_exporter'
     scrape_interval: 15s
     scrape_timeout: 10s
-    static_configs: # 靜態配置方式，每次配置都需要重啟 Prometheus 服務
-      - targets:
-        - my-redis-exporter:9121 # 此處 ip 要寫桌機的 IP，不能寫 localhost，因為是使用 docker 運行 Prometheus，localhost 會被視為 Prometheus container 自身
-
-#  - job_name: 'application-job'
-#    file_sd_configs:
-#      - files: [ '/usr/local/prometheus/groups/spring-application-job/*.yaml' ] # 使用 yaml
-#    scrape_interval: "5s"
-#    metrics_path: '/my-actuator/prometheus' # http://localhost:7001/my-actuator/prometheus  (see spring-app-job.yaml)
+#    static_configs: # 靜態配置方式，每次配置都需要重啟 Prometheus 服務
+#      - targets:
+#        - my-redis-exporter:9121 # 此處 ip 要寫桌機的 IP，不能寫 localhost，因為是使用 docker 運行 Prometheus，localhost 會被視為 Prometheus container 自身
+    file_sd_configs: # 動態配置方式(需在 prometheus 容器掛 volume)
+      - files:
+          - '/usr/local/prometheus/groups/redis-exporter-job/*.yaml'
