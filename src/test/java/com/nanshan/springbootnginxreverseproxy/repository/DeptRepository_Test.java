@@ -2,6 +2,7 @@ package com.nanshan.springbootnginxreverseproxy.repository;
 
 import com.nanshan.springbootnginxreverseproxy.BaseTest;
 import com.nanshan.springbootnginxreverseproxy.model.DeptVO;
+import lombok.Getter;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
@@ -14,6 +15,7 @@ import org.junit.jupiter.params.aggregator.ArgumentsAggregationException;
 import org.junit.jupiter.params.aggregator.ArgumentsAggregator;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.EnumSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -72,6 +74,14 @@ public class DeptRepository_Test extends BaseTest {
                 .ifPresent(System.err::println);
     }
 
+    @DisplayName("[test_005] 測試傳遞 Enum")
+    @ParameterizedTest
+    @EnumSource(Direction.class)
+    @Disabled
+    void test_005(Direction dir) {
+        System.out.println(dir.getEnglishName() + " - " + dir.getDesc());
+    }
+
 }
 
 /**
@@ -91,5 +101,22 @@ class DeptArgAggregator implements ArgumentsAggregator {
             .deptName(argAccessor.getString(1))
             .deptLoc(argAccessor.getString(2))
             .build();
+    }
+}
+
+@Getter
+enum Direction {
+    EAST("EAST", "東"),
+    WEST("WEST", "西"),
+    SOUTH("SOUTH", "南"),
+    NORTH("NORTH", "北")
+    ;
+
+    private String englishName;
+    private String desc;
+
+    Direction(String englishName, String desc) {
+        this.englishName = englishName;
+        this.desc = desc;
     }
 }
