@@ -16,11 +16,15 @@ import org.junit.jupiter.params.aggregator.ArgumentsAggregator;
 import org.junit.jupiter.params.provider.CsvFileSource;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.EnumSource;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Arrays;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class DeptRepository_Test extends BaseTest {
 
@@ -82,6 +86,20 @@ public class DeptRepository_Test extends BaseTest {
         System.out.println(dir.getEnglishName() + " - " + dir.getDesc());
     }
 
+    @DisplayName("[test_006] 複雜的構造算法，可以簡單地指定一個特殊的輔助方法")
+    @ParameterizedTest
+    @MethodSource(value = { "directionFactory" })
+    @Disabled
+    void test_006(String argument) {
+        System.out.println("argument = \n" + argument);
+    }
+
+    static Stream<String> directionFactory() {
+        String allStr = Arrays.stream(Direction.values())
+                .map(dir -> dir.getEnglishName() + "@" + dir.getDesc())
+                .collect(Collectors.joining("\n---\n"));
+        return Stream.of(allStr);
+    }
 }
 
 /**
